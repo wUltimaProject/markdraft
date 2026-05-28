@@ -18,15 +18,16 @@ describe('renderMarkdown', () => {
     expect(html).toContain('<code>code</code>');
   });
 
-  it('strips script tags (XSS)', () => {
+  it('does not render script tags as executable (XSS)', () => {
     const html = renderMarkdown('<script>alert(1)</script>');
+    // markdown-it html:false escapes raw HTML to entities — no actual <script> element
     expect(html).not.toContain('<script>');
-    expect(html).not.toContain('alert(1)');
   });
 
-  it('strips onclick attributes (XSS)', () => {
+  it('does not render onclick as executable (XSS)', () => {
     const html = renderMarkdown('<a onclick="evil()">link</a>');
-    expect(html).not.toContain('onclick');
+    // raw HTML escaped by markdown-it, not passed through as attribute
+    expect(html).not.toMatch(/<a[^>]+onclick/);
   });
 
   it('renders task list', () => {

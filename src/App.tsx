@@ -1,13 +1,18 @@
 import { type Component, onMount, onCleanup } from 'solid-js';
+import { listen } from '@tauri-apps/api/event';
+import { invoke } from '@tauri-apps/api/core';
 import { SplitPane } from './components/SplitPane';
 import { Editor } from './components/Editor';
 import { Preview } from './components/Preview';
 import { Toolbar } from './components/Toolbar';
 import { StatusBar } from './components/StatusBar';
+import { UnsavedDialogRoot, showUnsavedDialog } from './components/UnsavedDialog';
 import { documentStore } from './state/documentStore';
 import { fileHandlers } from './lib/fileHandlers';
 import { registerShortcut, initShortcuts } from './lib/shortcuts';
 import { themeService } from './lib/themeService';
+
+const closeApp = () => invoke('force_close');
 
 const App: Component = () => {
   onMount(() => {
@@ -19,7 +24,23 @@ const App: Component = () => {
     registerShortcut({ key: 's', ctrl: true, shift: true, handler: () => void fileHandlers.saveFileAs() });
 
     const cleanupShortcuts = initShortcuts();
-    onCleanup(cleanupShortcuts);
+
+    let unlistenClose: (() => void) | undefined;
+    void listen<void>('close-requested', async () => {
+      if (!documentStore.isDirty) {
+        await closeApp();
+        return;
+      }
+      const choice = await showUnsavedDialog();
+      if (choice === 'cancel') return;
+      if (choice === 'save') await fileHandlers.saveFile();
+      await closeApp();
+    }).then(fn => { unlistenClose = fn; });
+
+    onCleanup(() => {
+      cleanupShortcuts();
+      unlistenClose?.();
+    });
   });
 
   return (
@@ -33,6 +54,7 @@ const App: Component = () => {
         filePath={documentStore.filePath}
         isDirty={documentStore.isDirty}
       />
+      <UnsavedDialogRoot />
     </div>
   );
 };

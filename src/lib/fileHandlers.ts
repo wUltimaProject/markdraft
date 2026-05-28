@@ -1,14 +1,23 @@
 import { documentStore } from '../state/documentStore';
 import { fileService } from './fileService';
+import { showUnsavedDialog } from '../components/UnsavedDialog';
+
+async function confirmDiscardIfDirty(): Promise<boolean> {
+  if (!documentStore.isDirty) return true;
+  const choice = await showUnsavedDialog();
+  if (choice === 'cancel') return false;
+  if (choice === 'save') await fileHandlers.saveFile();
+  return true;
+}
 
 export const fileHandlers = {
   async newFile() {
-    if (documentStore.isDirty && !confirm('Unsaved changes will be lost. Continue?')) return;
+    if (!(await confirmDiscardIfDirty())) return;
     documentStore.reset();
   },
 
   async openFile() {
-    if (documentStore.isDirty && !confirm('Unsaved changes will be lost. Continue?')) return;
+    if (!(await confirmDiscardIfDirty())) return;
     const result = await fileService.openFile();
     if (result) {
       documentStore.setContent(result.content);

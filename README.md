@@ -1,34 +1,59 @@
 # md_viewer
 
-Descrizione breve prodotto — **da completare**.
+Minimalist local Markdown editor. Open, write, preview, save `.md` files — no cloud, no subscriptions, no AI.
 
-## Avvio rapido
+**Stack:** Tauri 2 + SolidJS + CodeMirror 6 + markdown-it
 
-(Dipende dallo stack — da compilare)
+---
 
-## Documentazione
+## Install (unsigned binaries)
 
-- [CLAUDE.md](CLAUDE.md) — contesto Claude
-- [docs/ONBOARDING.md](docs/ONBOARDING.md) — guida pickup
-- [docs/PROGRESS.md](docs/PROGRESS.md) — stato avanzamento
-- [docs/BACKLOG.md](docs/BACKLOG.md) — task
-- [docs/input/](docs/input/) — materiali utente
-- [docs/spec/](docs/spec/) — specifiche tecniche
+> Binaries are not code-signed. Both macOS and Windows will warn on first launch.
 
-## Struttura
+**Windows:**
+1. Download `md_viewer_x64.msi` from Releases
+2. Run installer — Windows SmartScreen may block it
+3. Click **"More info" → "Run anyway"** to proceed
 
+**macOS:**
+1. Download `md_viewer.dmg` from Releases
+2. Open DMG, drag app to Applications
+3. On first launch, macOS Gatekeeper blocks it
+4. Go to **System Settings → Privacy & Security → Open Anyway**
+5. Or: right-click the app → **Open** → Open
+
+---
+
+## Dev setup
+
+Requirements: Node 18+, Rust stable, VS C++ Build Tools (Windows)
+
+```bash
+npm install
+npm run tauri:dev     # dev mode with hot reload
+npm test              # unit tests (Vitest)
+npm run tauri:build   # release build → src-tauri/target/release/bundle/
 ```
-md_viewer/
-├── src/              # Codice sorgente
-├── output/           # Artefatti finiti (build, dist)
-├── docs/
-│   ├── input/        # Materiali forniti utente
-│   ├── spec/         # Specifiche tecniche
-│   └── (progress, backlog, ecc.)
-└── memory/           # Memoria Claude
-```
 
-## Link utili
+---
 
-- Progress: [docs/PROGRESS.md](docs/PROGRESS.md)
-- Backlog: [docs/BACKLOG.md](docs/BACKLOG.md)
+## Features
+
+- Split-pane editor (CodeMirror 6) + live preview (markdown-it + DOMPurify)
+- Syntax highlighting in fenced code blocks (highlight.js)
+- GFM: tables, task lists, strikethrough, autolinks
+- Formatting toolbar: Bold, Italic, Headings, Lists, Quote, Link, Code block
+- Keyboard shortcuts: Ctrl+N/O/S/Shift+S, Ctrl+B/I
+- Unsaved changes dialog on close/new/open
+- Light/Dark theme with system preference detection
+- Resizable split pane (persisted)
+- File: New, Open, Save, Save As
+
+---
+
+## Docs
+
+- [CLAUDE.md](CLAUDE.md) — context for Claude Code sessions
+- [docs/ONBOARDING.md](docs/ONBOARDING.md) — session pickup guide
+- [docs/PROGRESS.md](docs/PROGRESS.md) — milestone status
+- [docs/BACKLOG.md](docs/BACKLOG.md) — upcoming tasks

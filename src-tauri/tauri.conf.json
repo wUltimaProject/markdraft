@@ -35,13 +35,6 @@
       "icons/icon.ico"
     ]
   },
-  "plugins": {
-    "dialog": {},
-    "fs": {
-      "scope": {
-        "allow": ["$HOME/**", "$DOCUMENT/**", "$DESKTOP/**"],
-        "deny": ["$HOME/.ssh/**", "$HOME/.gnupg/**"]
-      }
-    }
-  }
+  "plugins": {}
+
 }

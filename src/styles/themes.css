@@ -9,17 +9,22 @@
   flex-shrink: 0;
 }
 
-.toolbar-group { display: flex; gap: 0.25rem; }
-.toolbar-group + .toolbar-group { border-left: 1px solid var(--border); padding-left: 0.5rem; }
+.toolbar-group { display: flex; gap: 0.25rem; align-items: center; }
+.toolbar-sep { width: 1px; height: 1.2rem; background: var(--border); margin: 0 0.1rem; flex-shrink: 0; }
 
 .toolbar-btn {
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   transition: all 0.15s;
+  white-space: nowrap;
 }
 .toolbar-btn:hover { background: var(--bg-surface-2); color: var(--text); }
+.toolbar-btn--fmt { font-family: var(--font-mono); }
+.toolbar-btn--fmt b { font-weight: 700; font-style: normal; }
+.toolbar-btn--fmt i { font-style: italic; }
+.toolbar-btn--fmt code { font-family: inherit; }
 
 .split-pane {
   display: flex;

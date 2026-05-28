@@ -9,6 +9,7 @@ import { StatusBar } from './components/StatusBar';
 import { UnsavedDialogRoot, showUnsavedDialog } from './components/UnsavedDialog';
 import { documentStore } from './state/documentStore';
 import { fileHandlers } from './lib/fileHandlers';
+import { editorService } from './lib/editorService';
 import { registerShortcut, initShortcuts } from './lib/shortcuts';
 import { themeService } from './lib/themeService';
 
@@ -21,7 +22,9 @@ const App: Component = () => {
     registerShortcut({ key: 'n', ctrl: true, shift: false, handler: () => void fileHandlers.newFile() });
     registerShortcut({ key: 'o', ctrl: true, shift: false, handler: () => void fileHandlers.openFile() });
     registerShortcut({ key: 's', ctrl: true, shift: false, handler: () => void fileHandlers.saveFile() });
-    registerShortcut({ key: 's', ctrl: true, shift: true, handler: () => void fileHandlers.saveFileAs() });
+    registerShortcut({ key: 's', ctrl: true, shift: true,  handler: () => void fileHandlers.saveFileAs() });
+    registerShortcut({ key: 'b', ctrl: true, shift: false, handler: () => editorService.wrapSelection('**', '**') });
+    registerShortcut({ key: 'i', ctrl: true, shift: false, handler: () => editorService.wrapSelection('_', '_') });
 
     const cleanupShortcuts = initShortcuts();
 

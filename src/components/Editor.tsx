@@ -1,10 +1,11 @@
 import { type Component, onMount, onCleanup, createEffect } from 'solid-js';
 import { EditorState } from '@codemirror/state';
-import { EditorView, keymap, lineNumbers, drawSelection, highlightActiveLine } from '@codemirror/view';
+import { EditorView, keymap, drawSelection, highlightActiveLine } from '@codemirror/view';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { oneDark } from '@codemirror/theme-one-dark';
+import { editorService } from '../lib/editorService';
 
 interface EditorProps {
   content: string;
@@ -56,8 +57,10 @@ export const Editor: Component<EditorProps> = props => {
     });
 
     view = new EditorView({ state, parent: containerRef! });
+    editorService.setView(view);
 
     onCleanup(() => {
+      editorService.setView(null);
       view?.destroy();
       view = undefined;
     });

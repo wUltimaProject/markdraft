@@ -1,10 +1,19 @@
-import { type Component } from 'solid-js';
+import { type Component, createSignal } from 'solid-js';
 import { fileHandlers } from '../lib/fileHandlers';
 import { editorService } from '../lib/editorService';
+import { themeService } from '../lib/themeService';
 
 const e = editorService;
 
-export const Toolbar: Component = () => (
+const [isDark, setIsDark] = createSignal(true);
+
+export const Toolbar: Component = () => {
+  const toggleTheme = () => {
+    const next = themeService.toggle();
+    setIsDark(next === 'dark');
+  };
+
+  return (
   <div class="toolbar">
     <div class="toolbar-group">
       <button class="toolbar-btn" onClick={() => void fileHandlers.newFile()} title="New (Ctrl+N)">New</button>
@@ -45,5 +54,14 @@ export const Toolbar: Component = () => (
       <button class="toolbar-btn toolbar-btn--fmt" onClick={() => e.insertLink()} title="Insert link">Link</button>
       <button class="toolbar-btn toolbar-btn--fmt" onClick={() => e.insertCodeBlock()} title="Code block">```</button>
     </div>
+
+    <div class="toolbar-sep" />
+
+    <div class="toolbar-group" style={{ 'margin-left': 'auto' }}>
+      <button class="toolbar-btn" onClick={toggleTheme} title="Toggle theme">
+        {isDark() ? '☀ Light' : '☾ Dark'}
+      </button>
+    </div>
   </div>
-);
+  );
+};

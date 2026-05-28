@@ -1,4 +1,4 @@
-import { type Component, onMount, onCleanup } from 'solid-js';
+import { type Component, createEffect, onCleanup } from 'solid-js';
 
 interface EditorProps {
   content: string;
@@ -12,8 +12,11 @@ export const Editor: Component<EditorProps> = props => {
     props.onChange((e.target as HTMLTextAreaElement).value);
   };
 
-  onMount(() => {
-    if (textareaRef) textareaRef.value = props.content;
+  // Sync external content changes (e.g. file open, new file) to textarea
+  createEffect(() => {
+    if (textareaRef && textareaRef.value !== props.content) {
+      textareaRef.value = props.content;
+    }
   });
 
   onCleanup(() => {
@@ -23,7 +26,7 @@ export const Editor: Component<EditorProps> = props => {
   return (
     <div class="editor-pane">
       <textarea
-        ref={textareaRef}
+        ref={el => { textareaRef = el; }}
         class="editor-textarea"
         spellcheck={false}
         autocomplete="off"

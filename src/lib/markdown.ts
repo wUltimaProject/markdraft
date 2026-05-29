@@ -4,11 +4,14 @@ import markdownItAnchor from 'markdown-it-anchor';
 import hljs from 'highlight.js';
 import DOMPurify from 'dompurify';
 
-const md = new MarkdownIt({
+// Declared before initialization to break circular reference in highlight callback
+let md: MarkdownIt;
+
+md = new MarkdownIt({
   html: false,
   linkify: true,
   typographer: true,
-  highlight(code, lang) {
+  highlight(code, lang): string {
     if (lang && hljs.getLanguage(lang)) {
       return `<pre class="hljs"><code>${hljs.highlight(code, { language: lang, ignoreIllegals: true }).value}</code></pre>`;
     }
@@ -18,7 +21,7 @@ const md = new MarkdownIt({
   .use(markdownItTaskLists, { enabled: true })
   .use(markdownItAnchor);
 
-const DOMPURIFY_CONFIG: DOMPurify.Config = {
+const DOMPURIFY_CONFIG = {
   ALLOWED_TAGS: [
     'h1','h2','h3','h4','h5','h6',
     'p','br','hr',

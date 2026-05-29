@@ -17,6 +17,6 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true
   },
-  "include": ["src", "tests/unit"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

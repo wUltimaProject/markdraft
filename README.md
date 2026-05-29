@@ -1,4 +1,4 @@
-# md_viewer
+# MarkDraft
 
 Minimalist local Markdown editor. Open, write, preview, save `.md` files — no cloud, no subscriptions, no AI.
 

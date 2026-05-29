@@ -1,7 +1,7 @@
 [package]
 name = "md_viewer"
 version = "0.1.0"
-description = "Minimalist local markdown editor"
+description = "MarkDraft — minimalist local Markdown editor"
 authors = ["wultimaproject"]
 edition = "2021"
 

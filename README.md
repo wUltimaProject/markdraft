@@ -11,12 +11,12 @@ Minimalist local Markdown editor. Open, write, preview, save `.md` files — no 
 > Binaries are not code-signed. Both macOS and Windows will warn on first launch.
 
 **Windows:**
-1. Download `md_viewer_x64.msi` from Releases
+1. Download `MarkDraft_x64_en-US.msi` (or `MarkDraft_x64-setup.exe`) from Releases
 2. Run installer — Windows SmartScreen may block it
 3. Click **"More info" → "Run anyway"** to proceed
 
 **macOS:**
-1. Download `md_viewer.dmg` from Releases
+1. Download `MarkDraft.dmg` from Releases
 2. Open DMG, drag app to Applications
 3. On first launch, macOS Gatekeeper blocks it
 4. Go to **System Settings → Privacy & Security → Open Anyway**

@@ -1,6 +1,6 @@
 {
-  "productName": "md_viewer",
-  "version": "0.1.0",
+  "productName": "MarkDraft",
+  "version": "0.1.1",
   "identifier": "com.wultimaproject.mdviewer",
   "build": {
     "frontendDist": "../dist",
@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "md_viewer",
+        "title": "MarkDraft",
         "width": 1200,
         "height": 800,
         "minWidth": 600,

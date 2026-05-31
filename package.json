@@ -1,6 +1,6 @@
 {
-  "name": "md_viewer",
-  "version": "0.1.0",
+  "name": "markdraft",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "scripts": {

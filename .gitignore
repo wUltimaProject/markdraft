@@ -32,3 +32,4 @@ npm-debug.log*
 # Output artifacts (except .gitkeep)
 output/*
 !output/.gitkeep
+docs/input/

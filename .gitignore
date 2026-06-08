@@ -33,3 +33,6 @@ npm-debug.log*
 output/*
 !output/.gitkeep
 docs/input/
+
+# Marketing assets (local only, not tracked)
+docs/banner_gumroad.png

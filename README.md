@@ -4,6 +4,8 @@ Minimalist local Markdown editor. Open, write, preview, save `.md` files — no 
 
 **Stack:** Tauri 2 + SolidJS + CodeMirror 6 + markdown-it
 
+![MarkDraft screenshot](docs/screenshot_md.png)
+
 ---
 
 ## Install (unsigned binaries)
